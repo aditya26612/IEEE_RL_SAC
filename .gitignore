@@ -81,7 +81,8 @@ sac_models/
 sac_logs/
 *.pt
 models/sac_microgrid/*.pt
-SAC_Rudra/models/
+SAC/models/
+artifacts/
 
 # OS specific
 .DS_Store

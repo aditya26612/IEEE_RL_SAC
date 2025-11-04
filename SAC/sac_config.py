@@ -1,14 +1,15 @@
 # SAC Configuration for Multi-Microgrid Energy Management
 # Replace your Q_Learning_v7.py with this SAC implementation
 
+import os
 import torch
 
 class SACConfig:
     """Configuration for SAC algorithm and environment"""
     
     # Environment Parameters
-    # Input data file with load, PV, and price information
-    DATA_PATH = r'Data_for_Qcode.csv'  # Input data - if missing, run create_sample_data.py
+    # Input data file with load, PV, and price information (use file located in this package)
+    DATA_PATH = os.path.join(os.path.dirname(__file__), 'Data_for_Qcode.csv')
     ENERGY_DATA_PATH = r'Energy_data_v7.csv'  # Output file for energy calculations
     
     # Microgrid Constants (from your code_v7.py)
@@ -78,7 +79,11 @@ class SACConfig:
     GRADIENT_STEPS = 1        # Number of gradient steps per update
     
     # Training Schedule
-    TOTAL_EPISODES = 1000     # Extended training for better convergence
+    # Allow overriding via environment variable `SAC_EPISODES` for quick runs
+    try:
+        TOTAL_EPISODES = int(os.environ.get('SAC_EPISODES', 1000))
+    except Exception:
+        TOTAL_EPISODES = 1000     # Extended training for better convergence
     MAX_STEPS_PER_EPISODE = 24  # 24 hourly time slots per day
     EVAL_FREQ = 25            # Evaluate every 25 episodes
     SAVE_FREQ = 100           # Model save frequency (episodes)

@@ -2,9 +2,12 @@ def main():
     import numpy as np
     import random
     import pandas as pd
+    import os
     from numpy import asarray
     from numpy import savetxt
     import csv
+    # base script directory
+    script_dir = os.path.dirname(os.path.abspath(__file__))
     from scipy.optimize import linprog
     import code_v7 as optim
     import Q_Learning_v7 as q
